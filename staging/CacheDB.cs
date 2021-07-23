@@ -12,20 +12,20 @@ namespace CacheDB
 
     public class ChacheDB<Item> : DbContext where Item : class
     { 
-        private DbType dbType;
+        private readonly DbType dbType;
         private SqliteConnection dbConn;
         private readonly string fileName;
         private readonly bool singleUseDb;
         public DbSet<Item> Items { get; set; }
-        public bool isTemp { get; set; }
+        public bool IsTemp { get; set; }
         public ChacheDB(DbType dbType=DbType.Memory, string fileName=null, bool singleUseDb=true)
         {
             this.dbType = dbType;
             this.fileName = fileName;
             this.singleUseDb = singleUseDb;
-            this.isTemp = false;
+            this.IsTemp = false;
         }
-        public void buildDb()
+        public void BuildDb()
         {
             if (this.dbType == DbType.File && this.fileName is null)
             {
@@ -54,7 +54,8 @@ namespace CacheDB
                     break;
 
                 default:
-                    throw new ArgumentException("Parameter cannot be null", nameof(this.dbType));
+                    ArgumentException argumentException = new("Parameter cannot be null");
+                    throw argumentException;
             }
         }
 

@@ -6,19 +6,19 @@ using System.Linq;
 
 namespace CacheDbTest
 {
-    public class testtype
+    public class Testtype
     {
-        [Key] public int id { get; set; }
+        [Key] public int Id { get; set; }
  
-        public string a { get; set; }
+        public string A { get; set; }
 
-        public int d { get; set; }
+        public int D { get; set; }
 
 
-    public testtype(string a, int d)
+    public Testtype(string a, int d)
         {
-            this.a = a;
-            this.d = d;
+            this.A = a;
+            this.D = d;
         }
     }
 
@@ -28,10 +28,10 @@ namespace CacheDbTest
         [TestMethod]
         public void TestMethod1()
         {
-            CacheDB.ChacheDB<testtype> d = new ChacheDB<testtype>();
-            d.buildDb();
-            d.Items.Add(new testtype("test1", 1));
-            d.Items.Add(new testtype("test2", 2));
+            CacheDB.ChacheDB<Testtype> d = new();
+            d.BuildDb();
+            d.Items.Add(new Testtype("test1", 1));
+            d.Items.Add(new Testtype("test2", 2));
             d.SaveChanges();
             d.MemoryDbClose();
         }
@@ -39,34 +39,34 @@ namespace CacheDbTest
         [TestMethod]
         public void TestMethod2()
         {
-            CacheDB.ChacheDB<testtype> d2 = new ChacheDB<testtype>(DbType.File, "testdb.db");
-            d2.buildDb();
-            d2.Items.Add(new testtype("test1", 1));
-            d2.Items.Add(new testtype("test2", 2));
+            CacheDB.ChacheDB<Testtype> d2 = new(DbType.File, "testdb.db");
+            d2.BuildDb();
+            d2.Items.Add(new Testtype("test1", 1));
+            d2.Items.Add(new Testtype("test2", 2));
             d2.SaveChanges();
-            Assert.AreEqual(2, d2.Items.ToList().Count());
+            Assert.AreEqual(2, d2.Items.ToList().Count);
         }
         [TestMethod]
         public void TestMethod3a()
         {
-            CacheDB.ChacheDB<testtype> d3 = new ChacheDB<testtype>(DbType.File, "test2db.db", false);
-            d3.buildDb();
-            d3.Items.Add(new testtype("test1", 1));
-            d3.Items.Add(new testtype("test2", 2));
+            CacheDB.ChacheDB<Testtype> d3 = new(DbType.File, "test2db.db", false);
+            d3.BuildDb();
+            d3.Items.Add(new Testtype("test1", 1));
+            d3.Items.Add(new Testtype("test2", 2));
             d3.SaveChanges();
-            Assert.IsTrue(2 == d3.Items.ToList().Count());
+            Assert.IsTrue(2 == d3.Items.ToList().Count);
         }
 
         [TestMethod]
         public void TestMethod3b()
         {
-            CacheDB.ChacheDB<testtype> d3b = new ChacheDB<testtype>(DbType.File, "test2db.db", false);
-            d3b.buildDb();
-            d3b.Items.Add(new testtype("test1", 1));
-            d3b.Items.Add(new testtype("test2", 2));
+            CacheDB.ChacheDB<Testtype> d3b = new(DbType.File, "test2db.db", false);
+            d3b.BuildDb();
+            d3b.Items.Add(new Testtype("test1", 1));
+            d3b.Items.Add(new Testtype("test2", 2));
             d3b.SaveChanges();
-            Assert.IsTrue(2 < d3b.Items.ToList().Count(), "Expected to fail first run!!!");
-            if (2 < d3b.Items.ToList().Count())
+            Assert.IsTrue(2 < d3b.Items.ToList().Count, "Expected to fail first run!!!");
+            if (2 < d3b.Items.ToList().Count)
             {
                 d3b.Distroy();
             }
